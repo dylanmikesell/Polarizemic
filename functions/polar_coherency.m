@@ -34,7 +34,7 @@
 % Uses program convsm1d.m
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [azim, incd, ellip] = polar_coherency(dtac,wndo)
+function [azim incd ellip] = polar_coherency(dtac,wndo)
 
 % unpack the matrix of three-component motion
 pv6z = dtac(1,:);
@@ -63,11 +63,11 @@ mvec33 = convsm1d(real(pv6eh.*conj(pv6eh)),wndo);
 % form the off-diagonal components of the coherency matrix and 
 % smooth over a window length - these are all complex-valued
 mvec12 = convsm1d(real(pv6zh.*conj(pv6nh)),wndo) +...
-       1i*convsm1d(imag(pv6zh.*conj(pv6nh)),wndo);
+       i*convsm1d(imag(pv6zh.*conj(pv6nh)),wndo);
 mvec13 = convsm1d(real(pv6zh.*conj(pv6eh)),wndo) +...
-       1i*convsm1d(imag(pv6zh.*conj(pv6eh)),wndo);
+       i*convsm1d(imag(pv6zh.*conj(pv6eh)),wndo);
 mvec23 = convsm1d(real(pv6nh.*conj(pv6eh)),wndo) +...
-       1i*convsm1d(imag(pv6nh.*conj(pv6eh)),wndo);
+       i*convsm1d(imag(pv6nh.*conj(pv6eh)),wndo);
 
 % initialize azim, ellip, and incd
 azim = zeros(1,tln);
@@ -84,7 +84,7 @@ for ii=1:tln
                    conj(mvec13(ii)) conj(mvec23(ii)) mvec33(ii) ]);         
 
     % sort the eigenvalues into ascending order
-    [ds, indx] = sort(diag(d),1,'ascend');
+    [ds indx] = sort(diag(d),1,'ascend');
     %d = d(:,indx);
     v2 = v2(:,indx);
     
@@ -100,16 +100,14 @@ for ii=1:tln
     alph = atan2(nmr,dmr);
     
     % rotate the largest eigenvector to maximize the real part
-    v2rv = v2(1:3,3)*exp(1i*alph);
+    v2rv = v2(1:3,3)*exp(i*alph);
     % the maximum real part of largest eigenvector
     v2r = sqrt((real(v2rv(1))^2) + (real(v2rv(2))^2) + (real(v2rv(3))^2));
 
     % calculate the azimuth and incidence angle
     v2 = real(v2rv); %v2 = real(v2(1:3,3));
-%    azim(ii) = atan2(v2(3),v2(2))*(180/pi);
+    azim(ii) = atan2(v2(3),v2(2))*(180/pi);
     incd(ii) = atan2(sqrt(v2(2)^2 + v2(3)^2),v2(1))*(180/pi);
-    azim(ii) = atan(v2(3)/v2(2))*(180/pi);
-%    incd(ii) = atan(sqrt(v2(2)^2 + v2(3)^2)/v2(1))*(180/pi);    
     
     % calculate the ellipticity as in Vidale (1986, BSSA)
     ellip(ii) = sqrt(1-(real(v2r)^2))/real(v2r);

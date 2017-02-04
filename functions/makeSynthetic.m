@@ -21,7 +21,7 @@ tpr2 = [zeros(1,tln/2) hanning(tln/2)'];
 % Ampplitude of each component
 ampZ = 1;
 ampE = 2;
-ampZ = 1;
+ampN = 1;
 % Phase of each component [rad]
 phsZ = 0 * (pi/180);
 phsE = 0 * (pi/180);
@@ -29,15 +29,15 @@ phsN = 0 * (pi/180);
 % Build time series and taper the edges with first taper
 w1Z = ampZ * cos( omga*tt + phsZ ) .* tpr;
 w1E = ampE * cos( omga*tt + phsE ) .* tpr;
-w1N = ampZ * cos( omga*tt + phsN ) .* tpr;
+w1N = ampN * cos( omga*tt + phsN ) .* tpr;
 
 %--------------------------------------------------------------------------
 % the elliptical signal - vertical component 90 degrees out of phase
 %
 % Ampplitude of each component
 ampZ = 1;
-ampE = 3;
-ampZ = 1;
+ampE = -3;
+ampN = 3;
 % Phase of each component [rad]
 phsZ = -90 * (pi/180);
 phsE =   0 * (pi/180);
@@ -45,7 +45,7 @@ phsN =   0 * (pi/180);
 % Build time series and taper the edges with second taper
 w2Z = ampZ * cos( omga*tt + phsZ ) .* tpr2;
 w2E = ampE * cos( omga*tt + phsE ) .* tpr2;
-w2N = ampZ * cos( omga*tt + phsN ) .* tpr2;
+w2N = ampN * cos( omga*tt + phsN ) .* tpr2;
 
 %--------------------------------------------------------------------------
 % Add rectilinear and elliptical signals

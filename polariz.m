@@ -77,14 +77,16 @@ set( findall( h, '-property', 'Fontsize' ), 'Fontsize', fsize );
 lSize = 2;
 h = figure('Color','white');
 subplot(3,1,1);
-plot(tt,azim,'LineWidth',lSize); axis([tt(1) tt(end) 60 75]); grid on;
+plot(tt,azim,'LineWidth',lSize); %axis([tt(1) tt(end) 60 75]); 
+grid on;
+axis([tt(1) tt(end) -180 180]); 
 title('Coherency matrix method (Vidale, BSSA, 1986)');
 ylabel('Azimuth [deg]');
 subplot(3,1,2)
 plot(tt,incd,'LineWidth',lSize); axis([tt(1) tt(end) 50 100]); grid on;
 ylabel('Incididence [deg]');
 subplot(3,1,3)
-plot(tt,ellip,'LineWidth',lSize); axis([tt(1) tt(end) 0 1]); grid on;
+plot(tt,ellip,'LineWidth',lSize); axis([tt(1) tt(end) 0 2]); grid on;
 xlabel('Time [s]'); ylabel('Ellipticity');
 %--------------------------------------------------------------------------
 % Fix figure properties
@@ -102,7 +104,9 @@ set( findall( h, '-property', 'Fontsize' ), 'Fontsize', fsize );
 lSize = 2;
 h = figure('Color','white');
 subplot(3,1,1)
-plot(tt,azim,'LineWidth',lSize); axis([tt(1) tt(end) 60 75]); grid on;
+plot(tt,azim,'LineWidth',lSize); %axis([tt(1) tt(end) 60 75]); 
+grid on;
+axis([tt(1) tt(end) -180 180]); 
 title('Covariance matrix method');
 ylabel('Azimuth [deg]');
 subplot(3,1,2)

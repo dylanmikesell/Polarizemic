@@ -34,7 +34,7 @@
 % Uses program convsm1d.m
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [azim, incd, ellip] = polar_covariance(dtac,wndo)
+function [azim incd ellip] = polar_covariance(dtac,wndo)
 
 % unpack the matrix of three-component motion
 pv6z = dtac(1,:);
@@ -76,7 +76,7 @@ for ii=1:tln
                    mvec13(ii) mvec23(ii) mvec33(ii) ]);         
 
     % sort the eigenvalues into ascending order
-    [ds, indx] = sort(diag(d),1,'ascend');
+    [ds indx] = sort(diag(d),1,'ascend');
     d = d(:,indx);
     v2 = v2(:,indx);
     
