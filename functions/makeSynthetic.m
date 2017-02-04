@@ -36,8 +36,8 @@ w1N = ampN * cos( omga*tt + phsN ) .* tpr;
 %
 % Ampplitude of each component
 ampZ = 1;
-ampE = -3;
-ampN = 3;
+ampE = 3;
+ampN = 1;
 % Phase of each component [rad]
 phsZ = -90 * (pi/180);
 phsE =   0 * (pi/180);
